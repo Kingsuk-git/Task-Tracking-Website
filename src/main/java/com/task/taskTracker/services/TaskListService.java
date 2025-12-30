@@ -3,7 +3,11 @@ package com.task.taskTracker.services;
 import com.task.taskTracker.domain.entities.TaskList;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface TaskListService {
     List<TaskList> listTaskLists();
+    TaskList creataskList(TaskList taskList);
+    Optional<TaskList> getTaskList(UUID id);
 }
