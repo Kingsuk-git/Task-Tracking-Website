@@ -2,6 +2,7 @@ package com.task.taskTracker.mappers.impl;
 
 import com.task.taskTracker.domain.dto.TaskDto;
 import com.task.taskTracker.domain.entities.Task;
+import com.task.taskTracker.domain.entities.TaskList;
 import com.task.taskTracker.mappers.TaskMapper;
 import org.springframework.stereotype.Component;
 
@@ -34,5 +35,10 @@ public class TaskMapperImpl implements TaskMapper
                 task.getPriority(),
                 task.getStatus()
         );
+    }
+
+    @Override
+    public Task toDto(TaskList taskList) {
+        return null;
     }
 }

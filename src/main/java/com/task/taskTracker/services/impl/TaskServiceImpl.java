@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,5 +61,29 @@ public class TaskServiceImpl implements TaskService {
                 now
         );
         return taskRepository.save(taskToSave);
+    }
+
+    @Override
+    public Optional<TaskList> getTask(UUID taskListId, UUID taskId) {
+        return  taskRepository.findByTaskIdAndId(taskListId,taskId);
+    }
+
+    @Override
+    public Task updateTask(UUID taskListId, UUID taskId, Task task) {
+        if(task.getId() == null){
+            throw new IllegalArgumentException("Task must have an ID!");
+        }
+        if(!Objects.equals(taskId,task.getId())){
+            throw new IllegalArgumentException("Task IDs do not match");
+        }
+        if(task.getPriority() == null){
+            throw new IllegalArgumentException("Task must have a priority");
+        }
+        if(task.getStatus() == null){
+            throw new IllegalArgumentException("Task must have a valid status");
+        }
+        
+        TaskList existingTask = taskRepository.findByTaskIdAndId(taskListId,taskId)
+                .orElseThrow(() -> new IllegalArgumentException("Task Not found "));
     }
 }
