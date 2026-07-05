@@ -47,4 +47,18 @@ public class TaskController {
     ){
         return taskService.getTask(taskListId, taskId).map((java.util.function.Function<? super com.task.taskTracker.domain.entities.TaskList, ? extends Task>) taskMapper::toDto);
     }
+
+    @PutMapping(path = "/{task_id}")
+    public  TaskDto updateTask(
+        @PathVariable("task_list_id") UUID taskListId,
+        @PathVariable("task_id") UUID taskID,
+        @RequestBody TaskDto taskDto
+    ){
+        Task updatedTask = taskService.updateTask(
+                taskListId,
+                taskID,
+                taskMapper.fromDto(taskDto)
+        );
+        return  taskMapper.toDto(updatedTask);
+    }
 }
